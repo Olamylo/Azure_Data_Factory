@@ -14,10 +14,10 @@
 		"AzureSqlDatabase3_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=olaoye.database.windows.net;Initial Catalog=Mylo-DB-Cloud"
 		},
-		"SqlServer1_connectionString": {
+		"AzureSqlDatabase4_connectionString": {
 			"value": ""
 		},
-		"AzureSqlDatabase4_connectionString": {
+		"SqlServer1_connectionString": {
 			"value": ""
 		}
 	}
