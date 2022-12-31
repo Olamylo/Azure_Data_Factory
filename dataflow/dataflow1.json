@@ -1,0 +1,76 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					},
+					"name": "Azuretomtom"
+				}
+			],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "rank1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          bulk_id as long,",
+				"          date_added as timestamp,",
+				"          location as string,",
+				"          JamsDelay as double,",
+				"          TrafficIndexLive as integer,",
+				"          UpdateTime as timestamp,",
+				"          JamsLength as double,",
+				"          JamsCount as integer,",
+				"          TrafficIndexWeekAgo as integer,",
+				"          UpdateTimeWeekAgo as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> Azuretomtom",
+				"Azuretomtom select(mapColumn(",
+				"          bulk_id,",
+				"          date_added,",
+				"          location,",
+				"          Jams_Delay = JamsDelay,",
+				"          Traffic_Index_Live = TrafficIndexLive,",
+				"          Update_Time = UpdateTime,",
+				"          Jams_Length = JamsLength,",
+				"          Jams_Count = JamsCount,",
+				"          Traffic_Index_Week_Ago = TrafficIndexWeekAgo,",
+				"          Update_Time_Week_Ago = UpdateTimeWeekAgo",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 filter(location == 'POL_warsaw') ~> filter1",
+				"filter1 derive(long_traffic_jam = iif(Jams_Length > 10,'True','False')) ~> derivedColumn1",
+				"derivedColumn1 rank(desc(Jams_Count, true),",
+				"     output(Traffic_jam_rank as long)) ~> rank1",
+				"rank1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

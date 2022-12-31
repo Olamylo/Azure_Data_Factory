@@ -1,0 +1,69 @@
+{
+	"name": "AzureSqlTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "bulk_id",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "date_added",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "location",
+				"type": "varchar"
+			},
+			{
+				"name": "JamsDelay",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "TrafficIndexLive",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UpdateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "JamsLength",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "JamsCount",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TrafficIndexWeekAgo",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UpdateTimeWeekAgo",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "BM_TOMTOM_TRAFFIC_0"
+		}
+	}
+}
