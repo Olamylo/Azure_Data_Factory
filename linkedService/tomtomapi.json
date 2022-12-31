@@ -1,0 +1,12 @@
+{
+	"name": "tomtomapi",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.midway.tomtom.com/ranking/liveHourly/USA_los-angeles",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
