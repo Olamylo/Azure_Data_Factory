@@ -1,0 +1,9 @@
+{
+	"name": "mylo-adf",
+	"location": "germanywestcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "18b7f1e9-c8de-4afc-be70-50839f6f91af",
+		"tenantId": "34f813ed-6838-4e43-9bc6-d912c3d0e086"
+	}
+}

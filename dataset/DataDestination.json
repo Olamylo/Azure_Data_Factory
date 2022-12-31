@@ -1,0 +1,58 @@
+{
+	"name": "DataDestination",
+	"properties": {
+		"description": "Connect to your data destination store.",
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"structure": [
+			{
+				"name": "bulk_id",
+				"type": "Int64"
+			},
+			{
+				"name": "date_added",
+				"type": "DateTime"
+			},
+			{
+				"name": "location",
+				"type": "String"
+			},
+			{
+				"name": "JamsDelay",
+				"type": "Double"
+			},
+			{
+				"name": "TrafficIndexLive",
+				"type": "Int32"
+			},
+			{
+				"name": "UpdateTime",
+				"type": "DateTime"
+			},
+			{
+				"name": "JamsLength",
+				"type": "Double"
+			},
+			{
+				"name": "JamsCount",
+				"type": "Int32"
+			},
+			{
+				"name": "TrafficIndexWeekAgo",
+				"type": "Int32"
+			},
+			{
+				"name": "UpdateTimeWeekAgo",
+				"type": "DateTime"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[BM_TOMTOM_TRAFFIC_0]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
