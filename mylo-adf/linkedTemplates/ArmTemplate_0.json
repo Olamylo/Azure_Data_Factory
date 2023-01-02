@@ -576,84 +576,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/test multiple tables')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Copy data from on premise SQL Server to SQL Azure.\n\nYou can also go to \"Copy Data Tool\" to get the pipeline for more connectors and scenarios.",
-				"activities": [
-					{
-						"name": "SQL_to_SQLAzure",
-						"description": "Copy data from SQL server to SQL Azure",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlSource",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "SqlSink",
-								"writeBatchSize": 10000,
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": true,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"dataIntegrationUnits": 0,
-							"translator": {
-								"type": "TabularTranslator",
-								"columnMappings": {
-									"bulk_id": "bulk_id",
-									"date_added": "date_added",
-									"location": "location",
-									"JamsDelay": "JamsDelay",
-									"TrafficIndexLive": "TrafficIndexLive",
-									"UpdateTime": "UpdateTime",
-									"JamsLength": "JamsLength",
-									"JamsCount": "JamsCount",
-									"TrafficIndexWeekAgo": "TrafficIndexWeekAgo",
-									"UpdateTimeWeekAgo": "UpdateTimeWeekAgo"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DataSource",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DataDestination",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-12-31T14:43:14Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DataSource')]",
-				"[concat(variables('factoryId'), '/datasets/DataDestination')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/TransformTrafficData')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -934,6 +856,53 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/onprem_tables')]",
 				"[concat(variables('factoryId'), '/pipelines/Iterate_and_copy_multi_tables_onpremsql_to_azuresql')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/transform TOMTOM traffic data')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "TransformTrafficData",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "TransformTrafficData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Azuretomtom": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/TransformTrafficData')]"
 			]
 		}
 	]
