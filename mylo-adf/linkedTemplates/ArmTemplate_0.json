@@ -898,7 +898,8 @@
 								"referenceName": "onprem_tables",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": false
 						}
 					},
 					{
