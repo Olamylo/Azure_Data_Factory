@@ -888,7 +888,7 @@
 							"source": {
 								"type": "SqlServerSource",
 								"sqlReaderQuery": {
-									"value": "SELECT TABLE_SCHEMA, TABLE_NAME FROM information_schema.TABLES WHERE TABLE_TYPE = 'BASE TABLE' and TABLE_SCHEMA = 'SalesLT' and TABLE_NAME <> 'ProductModel'",
+									"value": "SELECT TABLE_SCHEMA, TABLE_NAME FROM information_schema.TABLES \nWHERE TABLE_NAME IN ('STAGING_SP500_STOCK_PRICES', 'STAGING_SP500_STOCK_PERCENT_CHANGE', 'STAGING_TOMTOM_TRAFFIC')",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
