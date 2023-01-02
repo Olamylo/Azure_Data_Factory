@@ -11,6 +11,7 @@
 		"connectVia": {
 			"referenceName": "AzureIR",
 			"type": "IntegrationRuntimeReference"
-		}
+		},
+		"description": "Azure SQL DB linked service "
 	}
 }
