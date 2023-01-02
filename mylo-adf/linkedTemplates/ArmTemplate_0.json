@@ -524,13 +524,7 @@
 											"tableOption": "autoCreate",
 											"disableMetricsCollection": false
 										},
-										"enableStaging": true,
-										"stagingSettings": {
-											"linkedServiceName": {
-												"referenceName": "AzureBlobStoragelinkedservice",
-												"type": "LinkedServiceReference"
-											}
-										},
+										"enableStaging": false,
 										"translator": {
 											"type": "TabularTranslator",
 											"typeConversion": true,
@@ -575,8 +569,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/onprem_tables')]",
-				"[concat(variables('factoryId'), '/datasets/cloud_tables')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStoragelinkedservice')]"
+				"[concat(variables('factoryId'), '/datasets/cloud_tables')]"
 			]
 		},
 		{
@@ -888,7 +881,7 @@
 							"source": {
 								"type": "SqlServerSource",
 								"sqlReaderQuery": {
-									"value": "SELECT TABLE_SCHEMA, TABLE_NAME FROM information_schema.TABLES \nWHERE TABLE_NAME IN ('STAGING_SP500_STOCK_PRICES', 'STAGING_SP500_STOCK_PERCENT_CHANGE', 'STAGING_TOMTOM_TRAFFIC')",
+									"value": "SELECT TABLE_SCHEMA, TABLE_NAME FROM information_schema.TABLES",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
