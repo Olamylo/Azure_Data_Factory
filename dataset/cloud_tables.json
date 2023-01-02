@@ -1,0 +1,30 @@
+{
+	"name": "cloud_tables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase4",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DWTableName": {
+				"type": "string"
+			},
+			"DWSchema": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().DWSchema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().DWTableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
