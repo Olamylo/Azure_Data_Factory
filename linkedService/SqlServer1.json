@@ -11,6 +11,7 @@
 		"connectVia": {
 			"referenceName": "integrationRuntime1",
 			"type": "IntegrationRuntimeReference"
-		}
+		},
+		"description": "on-premises SQL server"
 	}
 }
