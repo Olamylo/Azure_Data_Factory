@@ -1,6 +1,63 @@
 {
-	"name": "pipeline2",
+	"name": "Get_Table_List_And_Trigger_Copy_Data",
 	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_Table_List",
+				"description": "Retrieve the table list from my database",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT TABLE_SCHEMA, TABLE_NAME FROM information_schema.TABLES WHERE TABLE_TYPE = 'BASE TABLE' and TABLE_SCHEMA = 'SalesLT' and TABLE_NAME <> 'ProductModel'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "onprem_tables",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Table_List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Iterate_and_copy_multi_tables_onpremsql_to_azuresql",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": false,
+					"parameters": {
+						"tableList": {
+							"value": "@activity('Lookup_Table_List').output.value",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
 		"annotations": []
 	}
 }
