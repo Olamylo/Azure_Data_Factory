@@ -1,0 +1,16 @@
+{
+	"name": "onprem_tables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "STAGING_TOMTOM_TRAFFIC"
+		}
+	}
+}
