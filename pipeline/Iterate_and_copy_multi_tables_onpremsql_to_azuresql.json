@@ -43,11 +43,17 @@
 										"type": "Expression"
 									},
 									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
+									"sqlWriterUseTableLock": true,
 									"tableOption": "autoCreate",
 									"disableMetricsCollection": false
 								},
-								"enableStaging": false,
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureBlobStoragelinkedservice",
+										"type": "LinkedServiceReference"
+									}
+								},
 								"translator": {
 									"type": "TabularTranslator",
 									"typeConversion": true,
