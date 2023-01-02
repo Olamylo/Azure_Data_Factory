@@ -280,11 +280,17 @@
 												"type": "Expression"
 											},
 											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false,
+											"sqlWriterUseTableLock": true,
 											"tableOption": "autoCreate",
 											"disableMetricsCollection": false
 										},
-										"enableStaging": false,
+										"enableStaging": true,
+										"stagingSettings": {
+											"linkedServiceName": {
+												"referenceName": "AzureBlobStoragelinkedservice",
+												"type": "LinkedServiceReference"
+											}
+										},
 										"translator": {
 											"type": "TabularTranslator",
 											"typeConversion": true,
@@ -329,7 +335,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/onprem_tables')]",
-				"[concat(variables('factoryId'), '/datasets/cloud_tables')]"
+				"[concat(variables('factoryId'), '/datasets/cloud_tables')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStoragelinkedservice')]"
 			]
 		},
 		{
