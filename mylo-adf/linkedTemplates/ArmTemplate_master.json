@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "mylo-adf"
 		},
+		"AzureBlobStoragelinkedservice_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStoragelinkedservice'"
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
@@ -28,6 +32,10 @@
 		"SqlServer1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
+		},
+		"tomtomapi_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.midway.tomtom.com/ranking/liveHourly/USA_los-angeles"
 		},
 		"containerUri": {
 			"type": "string",
@@ -59,6 +67,9 @@
 					"AzureSqlDatabase2_connectionString": {
 						"value": "[parameters('AzureSqlDatabase2_connectionString')]"
 					},
+					"AzureBlobStoragelinkedservice_connectionString": {
+						"value": "[parameters('AzureBlobStoragelinkedservice_connectionString')]"
+					},
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
 					},
@@ -70,10 +81,33 @@
 					},
 					"SqlServer1_connectionString": {
 						"value": "[parameters('SqlServer1_connectionString')]"
+					},
+					"tomtomapi_properties_typeProperties_url": {
+						"value": "[parameters('tomtomapi_properties_typeProperties_url')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "mylo-adf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'mylo-adf_ArmTemplate_0')]"
+			]
 		}
 	]
 }
