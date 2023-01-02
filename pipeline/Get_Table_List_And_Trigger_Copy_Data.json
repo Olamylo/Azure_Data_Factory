@@ -28,7 +28,8 @@
 					"dataset": {
 						"referenceName": "onprem_tables",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
