@@ -5,8 +5,12 @@
 		"type": "RestService",
 		"typeProperties": {
 			"url": "https://api.midway.tomtom.com/ranking/liveHourly/USA_los-angeles",
-			"enableServerCertificateValidation": true,
+			"enableServerCertificateValidation": false,
 			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime2",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
